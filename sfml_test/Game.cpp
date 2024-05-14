@@ -7,9 +7,12 @@ void Game::initVariables()
 
 	//Game logic
 	this->points = 0;
-	this->enemySpawnTimerMax = 10.f;
+	this->health = 20;
+	this->enemySpawnTimerMax = 20.f;
 	this->enemySpawnTimer = this->enemySpawnTimerMax;
-	this->maxEnemies = 10;
+	this->maxEnemies = 5;
+	this->mouseHeld = false;
+	this->endGame = false;
 }
 
 void Game::initWindow()
@@ -31,11 +34,29 @@ void Game::initEnemies()
 	//this->enemy.setOutlineThickness(1.f);
 }
 
+void Game::initFonts()
+{
+	if (!this->font.loadFromFile("Fonts/Jacquard12-Regular.ttf"))
+	{
+		std::cout << "ERROR::GAME::INITFONTS Failed to load font" << std::endl;
+	}
+}
+
+void Game::initText()
+{
+	this->uiText.setFont(this->font);
+	this->uiText.setCharacterSize(24);
+	this->uiText.setFillColor(sf::Color::White);
+	this->uiText.setString("None");
+}
+
 //Constructor
 Game::Game()
 {
 	this->initVariables();
 	this->initWindow();
+	this->initFonts();
+	this->initText();
 	this->initEnemies();
 }
 
@@ -49,6 +70,25 @@ Game::~Game()
 const bool Game::running() const
 {
 	return this->window->isOpen();
+}
+
+void Game::renderText(sf::RenderTarget& target)
+{
+	target.draw(this->uiText);
+}
+
+void Game::updateText()
+{
+	std::stringstream ss;
+
+	ss << "Points: " << this->points << "\n" << "Health: " << this->health;
+
+	this->uiText.setString(ss.str());
+}
+
+const bool Game::getEndGame() const
+{
+	return this->endGame;
 }
 
 //Functions 
@@ -67,15 +107,46 @@ void Game::spawnEnemy()
 		0.f
 	);
 
-	this->enemy.setFillColor(sf::Color::Green);
+	//Randomize enemy time
+	int type = rand() % 5;
+	 
+	// ugh
+	switch (type)
+	{
+	case 0:
+		this->enemy.setFillColor(sf::Color::Magenta);
+		this->enemy.setSize(sf::Vector2f(20.f, 20.f));
+		break;
+	case 1:
+		this->enemy.setFillColor(sf::Color::Blue);
+		this->enemy.setSize(sf::Vector2f(30.f, 30.f));
+		break;
+	case 2:
+		this->enemy.setFillColor(sf::Color::Cyan);
+		this->enemy.setSize(sf::Vector2f(50.f, 50.f));
+		break;
+	case 3:
+		this->enemy.setFillColor(sf::Color::Red);
+		this->enemy.setSize(sf::Vector2f(70.f, 70.f));
+		break;
+	case 4:
+		this->enemy.setFillColor(sf::Color::Green);
+		this->enemy.setSize(sf::Vector2f(100.f, 100.f));
+		break;
+	default:
+		this->enemy.setFillColor(sf::Color::Yellow);
+		this->enemy.setSize(sf::Vector2f(100.f, 100.f));
+		break;
+	}
+
 	this->enemies.push_back(this->enemy);
 }
 
-void Game::renderEnemies()
+void Game::renderEnemies(sf::RenderTarget& target)
 {
 	for (auto& e : this->enemies)
 	{
-		this->window->draw(e);
+		target.draw(e);
 	}
 }
 
@@ -108,28 +179,51 @@ void Game::updateEnemies()
 
 		this->enemies[i].move(0.f, 5.f);
 
-		//check if clicked upon
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) 
+		//check if passed the bottom of the screen
+		if (this->enemies[i].getPosition().y > this->window->getSize().y)
 		{
-			if (this->enemies[i].getGlobalBounds().contains(this->mousePosView))
-			{
-				deleted = true;
+			this->enemies.erase(this->enemies.begin() + i);
+			this->health -= 1;
+		}
+	}
 
-				//Gain points
-				this->points += 10.f;
+	//check if clicked upon
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+	{
+		if (this->mouseHeld == false)
+		{
+			this->mouseHeld = true;
+			bool deleted = false;
+
+			for (int i = 0; i < this->enemies.size() && deleted == false; i++)
+			{
+				if (this->enemies[i].getGlobalBounds().contains(this->mousePosView))
+				{
+					//Gain points
+					if (this->enemies[i].getFillColor() == sf::Color::Magenta)
+					{
+						this->points += 10;
+					}
+					else if (this->enemies[i].getFillColor() == sf::Color::Blue)
+					{
+						this->points += 7;
+					}
+					else //and so on
+					{
+						this->points += 1;
+					}
+					
+
+					//delete the enemy
+					deleted = true;
+					this->enemies.erase(this->enemies.begin() + i);
+				}
 			}
 		}
-
-		//check if passed the bottom of the screen
-		if (this->enemies[i].getPosition().y > this->window->getSize().y) 
-		{
-			deleted = true;
-		}
-
-		//delete the enemy
-		if (deleted) {
-			this->enemies.erase(this->enemies.begin() + i);
-		}		
+	}
+	else 
+	{
+		this->mouseHeld = false;
 	}
 }
 
@@ -163,8 +257,17 @@ void Game::updateMousePositions()
 void Game::update()
 {
 	this->pollEvents();
-	this->updateMousePositions();
-	this->updateEnemies();
+
+	if (!this->endGame) {
+		this->updateMousePositions();
+		this->updateEnemies();
+		this->updateText();
+	}
+
+	//endgame condition
+	if (this->health <= 0) {
+		this->endGame = true;
+	}
 }
 
 //Draw on screen
@@ -172,7 +275,9 @@ void Game::render()
 {
 	this->window->clear();
 
-	this->renderEnemies();
+	this->renderEnemies(*this->window);
+
+	this->renderText(*this->window);
 
 	//draw game here
 	this->window->display();
