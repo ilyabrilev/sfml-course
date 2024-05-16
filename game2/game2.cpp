@@ -1,6 +1,6 @@
 #include <ctime>
 
-#include "Game.h"
+#include "./Game.h"
 
 int main()
 {
@@ -8,7 +8,7 @@ int main()
     srand(static_cast<unsigned>(time(0)));
 
     //init game object
-    Game game;
+    Game2::Game game;
 
     //Game loop    
     while (game.running())

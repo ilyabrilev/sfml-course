@@ -3,43 +3,63 @@
 #include <iostream>
 #include <ctime>
 #include <vector>
+#include <sstream>
 
 #include "Player.h"
 #include "SwagBall.h"
 
-class Game
+namespace Game2
 {
-private:
-	sf::VideoMode videoMode;
-	sf::RenderWindow* window;
-	bool endGame;
-	sf::Event sfmlEvent;
 
-	Player player;
-	std::vector<SwagBall> swagBalls;
-	float spawnTimerMax;
-	float spawnTimer;
-	int maxSwagBalls;
+	class Game
+	{
+	private:
+		sf::VideoMode videoMode;
+		sf::RenderWindow* window;
+		bool endGame;
+		sf::Event sfmlEvent;
 
-	void initVariables();
-	void initWindow();
+		Player player;
+		int points;
 
-public:
-	Game();
-	~Game();
+		sf::Font font;
+		sf::Text guiText;
+		sf::Text endGameText;
 
-	// Accessors
+		std::vector<SwagBall> swagBalls;
+		float spawnTimerMax;
+		float spawnTimer;
+		int maxSwagBalls;
 
-	// Modifiers
+		void initVariables();
+		void initWindow();
+		void initFonts();
+		void initText();
 
-	// Functions
-	const bool running() const;
-	void pollEvents();
+	public:
+		Game();
+		~Game();
 
-	void update();
-	void render();
+		// Accessors
+		const bool running() const;
+		const bool& getEndGame() const;
 
-	void spawnSwagBalls();
-	void updateCollision();
-};
+		// Modifiers
 
+		// #Functions
+
+		//Core
+		void pollEvents();
+		void update();
+		void render();
+
+		//Game logic
+		void updateGui();
+		void updatePlayer();
+		void renderGui(sf::RenderTarget* target);
+		void spawnSwagBalls();
+		const int randomizeBallType() const;
+		void updateCollision();
+	};
+
+}

@@ -6,19 +6,26 @@
 #include <SFML/Audio.hpp>
 #include <SFML/Network.hpp>
 
-class SwagBall
+enum SwagBallTypes {DEFAULT=0, DAMAGING, HEALING, NROFTYPES};
+
+namespace Game2
 {
-private:
-	sf::CircleShape shape;
+	class SwagBall
+	{
+	private:
+		sf::CircleShape shape;
+		int type;
 
-	void initShape(const sf::RenderWindow* window);
-public:
-	SwagBall(const sf::RenderWindow* window);
-	virtual ~SwagBall();
+		void initShape(const sf::RenderWindow* window);
+	public:
+		SwagBall(const sf::RenderWindow* window, int type);
+		virtual ~SwagBall();
 
-	const sf::CircleShape getShape() const;
+		const sf::CircleShape getShape() const;
+		const int& getType() const;
 
-	void update();
-	void render(sf::RenderTarget* target);
-};
+		void update();
+		void render(sf::RenderTarget* target);
+	};
+}
 

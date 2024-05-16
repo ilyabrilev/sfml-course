@@ -6,27 +6,35 @@
 #include <SFML/Audio.hpp>
 #include <SFML/Network.hpp>
 
-class Player
+namespace Game2
 {
-private:
-	sf::RectangleShape shape;	
+	class Player
+	{
+	private:
+		sf::RectangleShape shape;
 
-	void initVariables();
-	void initShape();
+		void initVariables();
+		void initShape();
 
-	float movementSpeed;
-	int hp;
-	int hpMax;
-	int points;
-public:
-	Player(float x = 0.f, float y = 0.f);
-	virtual ~Player();	
+		float movementSpeed;
+		int hp;
+		int hpMax;
+	public:
+		Player(float x = 0.f, float y = 0.f);
+		virtual ~Player();
 
-	sf::RectangleShape getShape() const;
+		//Accessors
+		sf::RectangleShape getShape() const;
+		const int& getHp() const;
+		const int& getHpMax() const;
 
-	void updateInput();
-	void updateWindowBounceCollision(const sf::RenderTarget* target);
-	void update(const sf::RenderTarget* target);
-	void render(sf::RenderTarget* target);
-};
+		//Functions
+		void updateInput();
+		void updateWindowBounceCollision(const sf::RenderTarget* target);
+		void update(const sf::RenderTarget* target);
+		void render(sf::RenderTarget* target);
 
+		void takeDamage(const int damage);
+		void gainHealth(const int health);
+	};
+}
