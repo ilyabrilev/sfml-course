@@ -1,0 +1,3 @@
+﻿  Enemy.cpp
+C:\Projects\Cpp\sfml\Game3\Enemy.cpp(5,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  Game3.vcxproj -> C:\Projects\Cpp\sfml\x64\Debug\Game3.exe
