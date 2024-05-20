@@ -15,12 +15,14 @@ private:
 	int hpMax;
 	int damage;
 	int points;
+	int radius;
 
 	void initVariables();
 	void initShape(float pos_x, float pos_y);
 
 public:
 	Enemy(float pos_x, float pos_y);
+	Enemy(unsigned xMax);
 	virtual ~Enemy();
 
 	//Accessors

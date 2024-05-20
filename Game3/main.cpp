@@ -1,7 +1,7 @@
 #include <iostream>
 #include <time.h>
 
-#include "Game.h"
+#include "src/Game.h"
 
 int main()
 {

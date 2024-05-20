@@ -1,5 +1,9 @@
-C:\Projects\Cpp\sfml\Game3\Bullet.cpp;C:\Projects\Cpp\sfml\Game3\x64\Debug\Bullet.obj
-C:\Projects\Cpp\sfml\Game3\Enemy.cpp;C:\Projects\Cpp\sfml\Game3\x64\Debug\Enemy.obj
-C:\Projects\Cpp\sfml\Game3\Game.cpp;C:\Projects\Cpp\sfml\Game3\x64\Debug\Game.obj
 C:\Projects\Cpp\sfml\Game3\main.cpp;C:\Projects\Cpp\sfml\Game3\x64\Debug\main.obj
-C:\Projects\Cpp\sfml\Game3\Player.cpp;C:\Projects\Cpp\sfml\Game3\x64\Debug\Player.obj
+C:\Projects\Cpp\sfml\Game3\src\Bullet.cpp;C:\Projects\Cpp\sfml\Game3\x64\Debug\Bullet.obj
+C:\Projects\Cpp\sfml\Game3\src\BulletsContainer.cpp;C:\Projects\Cpp\sfml\Game3\x64\Debug\BulletsContainer.obj
+C:\Projects\Cpp\sfml\Game3\src\EnemiesContainer.cpp;C:\Projects\Cpp\sfml\Game3\x64\Debug\EnemiesContainer.obj
+C:\Projects\Cpp\sfml\Game3\src\Enemy.cpp;C:\Projects\Cpp\sfml\Game3\x64\Debug\Enemy.obj
+C:\Projects\Cpp\sfml\Game3\src\Game.cpp;C:\Projects\Cpp\sfml\Game3\x64\Debug\Game.obj
+C:\Projects\Cpp\sfml\Game3\src\Gui.cpp;C:\Projects\Cpp\sfml\Game3\x64\Debug\Gui.obj
+C:\Projects\Cpp\sfml\Game3\src\Player.cpp;C:\Projects\Cpp\sfml\Game3\x64\Debug\Player.obj
+C:\Projects\Cpp\sfml\Game3\src\TemplatedContainer.cpp;C:\Projects\Cpp\sfml\Game3\x64\Debug\TemplatedContainer.obj

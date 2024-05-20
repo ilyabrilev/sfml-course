@@ -3,10 +3,13 @@
 #include <map>
 #include <string>
 #include <sstream>
+#include <functional>
 
-#include "Player.h"
-#include "Bullet.h"
-#include "Enemy.h"
+#include "./Player.h"
+#include "./Bullet.h"
+#include "./Enemy.h"
+#include "./Gui.h"
+#include "./EnemiesContainer.h"
 
 class Game
 {
@@ -14,23 +17,14 @@ private:
 	sf::RenderWindow* window;
 
 	Player* player;
-	//player gui
-	sf::RectangleShape playerHpBar;
-	sf::RectangleShape playerHpBarBack;
+
+	Gui* gui;
 
 	//System
 	unsigned points;
 
 	//Enemies
-	float spawnTimer;
-	float spawnTimerMax;
-	std::vector<Enemy*> enemies;
-
-	//GUI
-	sf::Font font;
-	sf::Text pointText;
-
-	sf::Text gameOverText;
+	EnemiesContainer* enemies;
 
 	//World
 	sf::Texture worldBackgroundTexture;
@@ -43,11 +37,7 @@ private:
 
 	void initWindow();
 	void initTextures();
-	void initPlayer();
-	void initEnemies();
-	void initGui();
 	void initWorld();
-	void initSystem();
 
 public:
 	Game();
@@ -58,16 +48,13 @@ public:
 
 	void updatePollEvents();
 	void updateInput();
-	void updateGui();
+
+	void spawnBullet();
+
 	void updateBullets();
-	void updateEnemies();
 	void updateCombat();
-	void updateWorld();
-	void updateCollision();
 	void update();
 
-	void renderGui();
-	void renderWorld();
 	void render();
 };
 

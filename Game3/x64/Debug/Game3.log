@@ -1,7 +1,5 @@
 ﻿  Game.cpp
-C:\Projects\Cpp\sfml\Game3\Game.cpp(119,44): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
-C:\Projects\Cpp\sfml\Game3\Game.cpp(119,44): warning C4244:         with
-C:\Projects\Cpp\sfml\Game3\Game.cpp(119,44): warning C4244:         [
-C:\Projects\Cpp\sfml\Game3\Game.cpp(119,44): warning C4244:             T=unsigned int
-C:\Projects\Cpp\sfml\Game3\Game.cpp(119,44): warning C4244:         ]
+  Gui.cpp
+  Player.cpp
+  Generating Code...
   Game3.vcxproj -> C:\Projects\Cpp\sfml\x64\Debug\Game3.exe

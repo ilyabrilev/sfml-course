@@ -10,11 +10,12 @@ void Enemy::initVariables()
 	this->damage = 1;
 	this->points = this->pointCount;
 	this->speed = static_cast<float>(this->pointCount)/4.f;
+	this->radius = this->pointCount * 5;
 }
 
 void Enemy::initShape(float pos_x, float pos_y)
 {
-	this->shape.setRadius(this->pointCount * 5);
+	this->shape.setRadius(this->radius);
 	this->shape.setPointCount(this->pointCount);
 	this->shape.setPosition(pos_x, pos_y);
 	this->shape.setFillColor(sf::Color(rand() % 200 + 55, rand() % 200 + 55, rand() % 200 + 55, 255));
@@ -24,6 +25,12 @@ Enemy::Enemy(float pos_x, float pos_y)
 {
 	this->initVariables();
 	this->initShape(pos_x, pos_y);
+}
+
+Enemy::Enemy(unsigned xMax)
+{
+	this->initVariables();
+	this->initShape(static_cast<float>(rand() % (xMax - this->radius*2)), -100.f);
 }
 
 Enemy::~Enemy()
