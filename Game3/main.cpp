@@ -5,6 +5,8 @@
 
 int main()
 {
+	std::cout << std::filesystem::current_path() << std::endl;
+
 	srand(static_cast<unsigned>(time(0)));
 
 	Game game;

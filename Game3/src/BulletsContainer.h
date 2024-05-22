@@ -10,7 +10,10 @@ public:
 	BulletsContainer();
 	~BulletsContainer();
 
+	void erase(int pos) override;
+
 	void update();
 	void render(sf::RenderTarget* target) const;
+
 };
 

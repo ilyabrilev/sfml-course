@@ -10,6 +10,8 @@
 #include "./Enemy.h"
 #include "./Gui.h"
 #include "./EnemiesContainer.h"
+#include "./BulletsContainer.h"
+#include "./Globals.h"
 
 class Game
 {
@@ -30,13 +32,10 @@ private:
 	sf::Texture worldBackgroundTexture;
 	sf::Sprite worldBackground;
 
-	//Resources
-	std::map<std::string, sf::Texture*> textures;
 	std::vector<Bullet*> bullets;
-
+	BulletsContainer* c_bullets;
 
 	void initWindow();
-	void initTextures();
 	void initWorld();
 
 public:
@@ -47,11 +46,9 @@ public:
 	void run();
 
 	void updatePollEvents();
-	void updateInput();
-
-	void spawnBullet();
 
 	void updateBullets();
+	void updatePlayer();
 	void updateCombat();
 	void update();
 

@@ -1,15 +1,22 @@
 #pragma once
 #include <iostream>
 #include <functional>
+#include <vector>
 
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
+
+#include "Bullet.h"
+#include "BulletsContainer.h"
+#include "Globals.h"
 
 class Player
 {
 private:
 	sf::Sprite sprite;
 	sf::Texture texture;
+
+	sf::Texture mainBulletTexture;
 
 	float movementSpeed;
 
@@ -46,7 +53,7 @@ public:
 
 	void update(sf::Vector2u windowSize);
 	void updateMovement();
-	void updateAttack();
+	void updateAttack(BulletsContainer &playerBullets);
 	void updateCollision(sf::Vector2u windowSize);
 	void render(sf::RenderTarget* target) const;
 };

@@ -3,7 +3,7 @@
 void Gui::initGui(sf::RenderWindow* window)
 {
 	// load font
-	if (!this->font.loadFromFile("Fonts/PoetsenOne-Regular.ttf"))
+	if (!this->font.loadFromFile(MAIN_DIRECTORY+"Fonts/PoetsenOne-Regular.ttf"))
 	{
 		std::cout << "ERROR::GAME::Failed to load font" << std::endl;
 	}

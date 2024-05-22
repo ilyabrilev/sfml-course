@@ -3,16 +3,16 @@
 void Player::initSprite()
 {
 	//Load from file
-	if (!this->texture.loadFromFile("Textures/ship.png"))
+	if (!this->texture.loadFromFile(MAIN_DIRECTORY + "Textures/ship.png"))
 	{
 		std::cout << "ERROR::PLAYER::INITTEXTURE Could not load a texture" << std::endl;
 	}
-
 	//set the texture to the sprite
 	this->sprite.setTexture(this->texture);
-
 	//resize the sprite
 	this->sprite.scale(0.1f, 0.1f);
+
+	this->mainBulletTexture.loadFromFile(MAIN_DIRECTORY + "Textures/bullet.png");
 }
 
 void Player::initVariables()
@@ -107,7 +107,6 @@ bool Player::canAttack()
 void Player::update(sf::Vector2u windowSize)
 {
 	this->updateMovement();
-	this->updateAttack();
 	this->updateCollision(windowSize);
 }
 
@@ -132,10 +131,23 @@ void Player::updateMovement()
 	}
 }
 
-void Player::updateAttack()
+void Player::updateAttack(BulletsContainer &playerBullets)
 {
 	if (this->attackCooldown < this->attackCooldownMax)
 		this->attackCooldown += 0.5f;
+
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->canAttack())
+	{
+		playerBullets.push_back(
+			new Bullet(
+				&this->mainBulletTexture,
+				this->getPos().x + this->getBounds().width / 2.f - this->mainBulletTexture.getSize().x/2,
+				this->getPos().y,
+				0.f,
+				-1.f,
+				5.f
+			));
+	}
 }
 
 void Player::updateCollision(sf::Vector2u windowSize)

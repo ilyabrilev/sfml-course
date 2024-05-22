@@ -8,6 +8,7 @@
 #include <SFML/System.hpp>
 
 #include "Player.h"
+#include "Globals.h"
 
 class Gui
 {
